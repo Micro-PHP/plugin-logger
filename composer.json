@@ -1,0 +1,22 @@
+{
+    "name": "micro/plugin-logger",
+    "description": "Micro Framework: Logger plugin",
+    "type": "library",
+    "version": "0.1",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Micro\\Plugin\\Logger\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stanislau.Komar",
+            "email": "stanislau_komar@epam.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "monolog/monolog": "2.3.*"
+    }
+}
