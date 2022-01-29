@@ -1,5 +1,5 @@
 {
-    "name": "micro/plugin-logger",
+    "name": "micro/plugin-logger-core",
     "description": "Micro Framework: Logger plugin",
     "type": "library",
     "version": "0.1",
@@ -17,6 +17,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "monolog/monolog": "2.3.*"
+        "php": ">=8.0",
+        "psr/log": "^1.0.1 || ^2.0 || ^3.0"
     }
 }

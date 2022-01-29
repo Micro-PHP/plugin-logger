@@ -4,37 +4,60 @@ namespace Micro\Plugin\Logger;
 
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\Plugin\AbstractPlugin;
-use Micro\Plugin\Logger\Impl\LoggerFactory;
-use \Closure;
+use Micro\Plugin\Logger\Business\Factory\LoggerFactory;
+use Micro\Plugin\Logger\Business\Factory\LoggerFactoryInterface;
+use Micro\Plugin\Logger\Business\Provider\LoggerProvider;
+use Micro\Plugin\Logger\Business\Provider\LoggerProviderInterface;
 
-class LoggerPlugin extends AbstractPlugin
+abstract class LoggerPlugin extends AbstractPlugin
 {
-    public const SERVICE_LOGGER = 'logger';
+    /**
+     * @var LoggerProviderInterface|null
+     */
+    private ?LoggerProviderInterface $loggerProvider = null;
 
     /**
      * {@inheritDoc}
      */
     public function provideDependencies(Container $container): void
     {
-        $container->register(self::SERVICE_LOGGER, $this->createLoggerServiceCallback());
+        $container->register(LoggerFacadeInterface::class, function (Container $container) {
+            return $this->createLoggerFacade();
+        });
     }
 
     /**
-     * @return Closure
+     * @return LoggerProviderInterface
      */
-    private function createLoggerServiceCallback(): Closure
+    protected function getLoggerProvider(): LoggerProviderInterface
     {
-        return function (Container $container)
-        {
-            return $this->createLoggerFactory()->create();
-        };
+        if(!$this->loggerProvider) {
+            $this->loggerProvider = $this->createLoggerProvider();
+        }
+
+        return $this->loggerProvider;
+    }
+
+    /**
+     * @return LoggerProviderInterface
+     */
+    protected function createLoggerProvider(): LoggerProviderInterface
+    {
+        return new LoggerProvider(
+            $this->createLoggerFactory()
+        );
+    }
+
+    /**
+     * @return LoggerFacadeInterface
+     */
+    protected function createLoggerFacade(): LoggerFacadeInterface
+    {
+        return new LoggerFacade($this->getLoggerProvider());
     }
 
     /**
      * @return LoggerFactoryInterface
      */
-    private function createLoggerFactory(): LoggerFactoryInterface
-    {
-        return new LoggerFactory($this->configuration);
-    }
+    abstract protected function createLoggerFactory(): LoggerFactoryInterface;
 }
