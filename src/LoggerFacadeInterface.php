@@ -9,8 +9,9 @@ interface LoggerFacadeInterface
     public const LOGGER_DEFAULT = 'default';
 
     /**
-     * @param string $logger
+     * @param string|null $logger
+     *
      * @return LoggerInterface
      */
-    public function getLogger(string $logger = self::LOGGER_DEFAULT): LoggerInterface;
+    public function getLogger(?string $logger = self::LOGGER_DEFAULT): LoggerInterface;
 }

@@ -15,7 +15,7 @@ class LoggerProvider implements LoggerProviderInterface
     /**
      * @param LoggerFactoryInterface $loggerFactory
      */
-    public function __construct(private LoggerFactoryInterface $loggerFactory)
+    public function __construct(private readonly LoggerFactoryInterface $loggerFactory)
     {
         $this->loggerCollection = [];
     }

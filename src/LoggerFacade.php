@@ -15,12 +15,16 @@ class LoggerFacade implements LoggerFacadeInterface
     }
 
     /**
-     * @param string $logger
+     * @param null|string $logger
      *
      * @return LoggerInterface
      */
-    public function getLogger(string $logger = self::LOGGER_DEFAULT): LoggerInterface
+    public function getLogger(?string $logger = self::LOGGER_DEFAULT): LoggerInterface
     {
+        if($logger === null) {
+            $logger = self::LOGGER_DEFAULT;
+        }
+
         return $this->loggerProvider->getLogger($logger);
     }
 }
