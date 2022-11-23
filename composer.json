@@ -2,7 +2,7 @@
     "name": "micro/plugin-logger-core",
     "description": "Micro Framework: Logger plugin",
     "type": "library",
-    "version": "0.1",
+    "version": "0.2",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -16,6 +16,7 @@
         }
     ],
     "require": {
+        "micro/kernel": "^1",
         "php": ">=8.0",
         "psr/log": "^1|^2|^3"
     }
