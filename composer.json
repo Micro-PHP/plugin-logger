@@ -2,7 +2,7 @@
     "name": "micro/plugin-logger-core",
     "description": "Micro Framework: Logger plugin",
     "type": "library",
-    "version": "0.2",
+    "version": "1.0",
     "license": "MIT",
     "autoload": {
         "psr-4": {
