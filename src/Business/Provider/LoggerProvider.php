@@ -99,14 +99,14 @@ class LoggerProvider implements LoggerProviderInterface
             $installed = true;
         }
 
-        if (!$installed) {
+        if ($installed) {
             return;
         }
 
         throw new LoggerAdapterNotRegisteredException(<<<EOF
                 There are no logger adapters available.
                 You should install one of the logger adapter plugin.
-                We recommend using the package "package" `micro/plugin-logger-monolog`.
+                We recommend using the package `micro/plugin-logger-monolog`.
                 EOF);
     }
 }
