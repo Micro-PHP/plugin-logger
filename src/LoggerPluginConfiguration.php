@@ -1,54 +1,32 @@
 <?php
 
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Logger;
 
 use Micro\Framework\Kernel\Configuration\PluginConfiguration;
-use Monolog\Logger;
+use Micro\Plugin\Logger\Configuration\LoggerPluginConfigurationInterface;
+use Micro\Plugin\Logger\Configuration\LoggerProviderTypeConfiguration;
+use Micro\Plugin\Logger\Configuration\LoggerProviderTypeConfigurationInterface;
 
-class LoggerPluginConfiguration extends PluginConfiguration
+class LoggerPluginConfiguration extends PluginConfiguration implements LoggerPluginConfigurationInterface
 {
-    const LOGGER_NAME_DEFAULT = 'default';
+    public const LOGGER_NAME_DEFAULT = 'default';
 
-    const LOGGER_LOG_LEVEL_DEFAULT = 'debug';
-
-    const LOGGER_LOG_LEVEL = 'LOGGER_LOG_LEVEL';
-
-    const LOGGER_LOG_FILE = 'LOGGER_FILE';
-
-    const LOG_LEVEL_VALUES = [
-        'DEBUG'         => Logger::DEBUG,
-        'CRITICAL'      => Logger::CRITICAL,
-        'EMERGENCY'     => Logger::EMERGENCY,
-        'ALERT'         => Logger::ALERT,
-        'ERROR'         => Logger::ERROR,
-        'INFO'          => Logger::INFO,
-        'WARNING'       => Logger::WARNING,
-        'NOTICE'        => Logger::NOTICE,
-    ];
-
-    /**
-     * @return string
-     */
-    public function getLogFile(): string
-    {
-        return $this->configuration->get(self::LOGGER_LOG_FILE);
-    }
-
-    /**
-     * @return string
-     */
     public function getLoggerDefaultName(): string
     {
         return self::LOGGER_NAME_DEFAULT;
     }
 
-    /**
-     * @return int
-     */
-    public function getLogLevel(): int
+    public function getLoggerProviderTypeConfig(string $loggerName): LoggerProviderTypeConfigurationInterface
     {
-        $levelString = $this->configuration->get(self::LOGGER_LOG_LEVEL, self::LOGGER_LOG_LEVEL_DEFAULT);
-
-        return self::LOG_LEVEL_VALUES[mb_strtoupper($levelString)];
+        return new LoggerProviderTypeConfiguration($this->configuration, $loggerName);
     }
 }
