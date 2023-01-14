@@ -1,18 +1,8 @@
 {
     "name": "micro/plugin-logger-core",
     "description": "Micro Framework: Logger plugin",
-    "type": "library",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Micro\\Plugin\\Logger\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Micro\\Plugin\\Logger\\Test\\": "tests/"
-        }
-    },
+    "type": "library",
     "authors": [
         {
             "name": "Stanislau.Komar",
@@ -20,10 +10,10 @@
         }
     ],
     "require": {
+        "micro/kernel": "^1",
         "micro/kernel-boot-configuration": "^1",
         "micro/kernel-boot-dependency": "^1",
-        "micro/kernel": "^1",
-        "psr/log": "^1|^2|^3"
+        "psr/log": "^1 || ^2 || ^3"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.29",
@@ -32,6 +22,16 @@
         "phpunit/php-code-coverage": "^9.2",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Micro\\Plugin\\Logger\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Micro\\Plugin\\Logger\\Test\\Unit\\": "tests/Unit"
+        }
     },
     "config": {
         "allow-plugins": {
@@ -42,7 +42,7 @@
     "scripts": {
         "coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text",
         "php-cs-fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --verbose --using-cache=no",
-        "php-cs-try": "./vendor/bin/php-cs-fixer fix --verbose --dry-run --using-cache=no",
+        "php-cs-try": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --verbose --dry-run --using-cache=no",
         "phpstan": "./vendor/bin/phpstan analyze --no-progress",
         "phpunit": "./vendor/bin/phpunit",
         "psalm": "./vendor/bin/psalm --no-progress --show-info=true",

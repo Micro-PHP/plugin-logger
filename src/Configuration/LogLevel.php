@@ -15,14 +15,53 @@ namespace Micro\Plugin\Logger\Configuration;
 
 use Psr\Log\LogLevel as PsrLogLevel;
 
-enum LogLevel: string
+enum LogLevel
 {
-    case DEBUG = PsrLogLevel::DEBUG;
-    case CRITICAL = PsrLogLevel::CRITICAL;
-    case EMERGENCY = PsrLogLevel::EMERGENCY;
-    case ALERT = PsrLogLevel::ALERT;
-    case ERROR = PsrLogLevel::ERROR;
-    case INFO = PsrLogLevel::INFO;
-    case WARNING = PsrLogLevel::WARNING;
-    case NOTICE = PsrLogLevel::NOTICE;
+    case DEBUG;
+    case CRITICAL;
+    case EMERGENCY;
+    case ALERT;
+    case ERROR;
+    case INFO;
+    case WARNING;
+    case NOTICE;
+
+    public function level(): string
+    {
+        return match ($this) {
+            LogLevel::DEBUG => PsrLogLevel::DEBUG,
+            LogLevel::CRITICAL => PsrLogLevel::CRITICAL,
+            LogLevel::EMERGENCY => PsrLogLevel::EMERGENCY,
+            LogLevel::ALERT => PsrLogLevel::ALERT,
+            LogLevel::ERROR => PsrLogLevel::ERROR,
+            LogLevel::INFO => PsrLogLevel::INFO,
+            LogLevel::WARNING => PsrLogLevel::WARNING,
+            LogLevel::NOTICE => PsrLogLevel::NOTICE,
+        };
+    }
+
+    public static function getLevelFromString(string $logLevel): LogLevel
+    {
+        $toLower = mb_strtolower($logLevel);
+        switch ($toLower) {
+            case PsrLogLevel::DEBUG:
+                return LogLevel::DEBUG;
+            case PsrLogLevel::CRITICAL:
+                return LogLevel::CRITICAL;
+            case PsrLogLevel::EMERGENCY:
+                return LogLevel::EMERGENCY;
+            case PsrLogLevel::ALERT:
+                return LogLevel::ALERT;
+            case PsrLogLevel::ERROR:
+                return LogLevel::ERROR;
+            case PsrLogLevel::INFO:
+                return LogLevel::INFO;
+            case PsrLogLevel::WARNING:
+                return LogLevel::WARNING;
+            case PsrLogLevel::NOTICE:
+                return LogLevel::NOTICE;
+            default:
+                throw new \RuntimeException('Invalid log level value `%s`.');
+        }
+    }
 }

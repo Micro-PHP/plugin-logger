@@ -30,7 +30,7 @@ class LoggerProviderTypeConfiguration extends PluginRoutingKeyConfiguration impl
             return LogLevel::DEBUG;
         }
 
-        return LogLevel::from(mb_strtoupper($levelString));
+        return LogLevel::getLevelFromString($levelString);
     }
 
     public function getType(): string
