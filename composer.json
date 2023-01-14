@@ -41,6 +41,7 @@
     },
     "scripts": {
         "coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text",
+        "coverage-html": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html ./test-coverage-report",
         "php-cs-fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --verbose --using-cache=no",
         "php-cs-try": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --verbose --dry-run --using-cache=no",
         "phpstan": "./vendor/bin/phpstan analyze --no-progress",

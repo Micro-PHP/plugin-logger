@@ -14,6 +14,8 @@ namespace Micro\Plugin\Logger\Business\Provider;
 use Micro\Framework\Kernel\KernelInterface;
 use Micro\Plugin\Logger\Configuration\LoggerPluginConfigurationInterface;
 use Micro\Plugin\Logger\Configuration\LoggerProviderTypeConfigurationInterface;
+use Micro\Plugin\Logger\Exception\LoggerAdapterAlreadyExistsException;
+use Micro\Plugin\Logger\Exception\LoggerAdapterNameInvalidException;
 use Micro\Plugin\Logger\Exception\LoggerAdapterNotRegisteredException;
 use Micro\Plugin\Logger\Plugin\LoggerProviderPluginInterface;
 use Psr\Log\LoggerInterface;
@@ -47,7 +49,6 @@ class LoggerProvider implements LoggerProviderInterface
         }
 
         $loggerProviderTypeConfig = $this->loggerPluginConfiguration->getLoggerProviderTypeConfig($loggerName);
-
         $this->lookupLoggerAdapters();
         $logger = $this->createLogger($loggerProviderTypeConfig);
 
@@ -95,7 +96,16 @@ class LoggerProvider implements LoggerProviderInterface
         $installed = false;
         /** @var LoggerProviderPluginInterface $adapter */
         foreach ($iterator as $adapter) {
-            $this->loggerAdapters[$adapter->getLoggerAdapterName()] = $adapter;
+            $adapterName = trim($adapter->getLoggerAdapterName());
+            if (!$adapterName) {
+                throw new LoggerAdapterNameInvalidException(sprintf('Logger adapter `%s::getLoggerAdapterName()` is empty.', \get_class($adapter)));
+            }
+
+            if (\array_key_exists($adapterName, $this->loggerAdapters)) {
+                throw new LoggerAdapterAlreadyExistsException(sprintf('Logger adapter with alias `%s` already exists.', $adapterName));
+            }
+
+            $this->loggerAdapters[$adapterName] = $adapter;
             $installed = true;
         }
 

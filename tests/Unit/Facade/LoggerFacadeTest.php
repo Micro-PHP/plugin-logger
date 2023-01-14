@@ -31,19 +31,19 @@ class LoggerFacadeTest extends TestCase
         $provider
             ->expects($this->once())
             ->method('getLogger')
-            ->with($loggerName)
+            ->with($loggerName ?? 'default')
             ->willReturn($logger);
 
         $facade = new LoggerFacade($provider);
 
-        $this->assertEquals($logger, $facade->getLogger($loggerName));
+        $this->assertSame($logger, $facade->getLogger($loggerName));
     }
 
     public function dataProvider()
     {
         return [
             ['test'],
-            [],
+            [null],
         ];
     }
 }

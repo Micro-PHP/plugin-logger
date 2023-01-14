@@ -19,32 +19,33 @@ use Psr\Log\LogLevel as PsrLogLevel;
 
 class LogLevelTest extends TestCase
 {
-    /**
-     * @dataProvider dataProvider
-     */
-    public function testLevel(string $level)
+    public function testLevelMethodReturnsCorrectValue()
     {
-        if ('not_registered_level' === $level) {
-            $this->expectException(\RuntimeException::class);
-        }
-
-        $levelObj = LogLevel::getLevelFromString($level);
-
-        $this->assertEquals($level, $levelObj->level());
+        $this->assertEquals(PsrLogLevel::DEBUG, LogLevel::DEBUG->level());
+        $this->assertEquals(PsrLogLevel::CRITICAL, LogLevel::CRITICAL->level());
+        $this->assertEquals(PsrLogLevel::EMERGENCY, LogLevel::EMERGENCY->level());
+        $this->assertEquals(PsrLogLevel::ALERT, LogLevel::ALERT->level());
+        $this->assertEquals(PsrLogLevel::ERROR, LogLevel::ERROR->level());
+        $this->assertEquals(PsrLogLevel::INFO, LogLevel::INFO->level());
+        $this->assertEquals(PsrLogLevel::WARNING, LogLevel::WARNING->level());
+        $this->assertEquals(PsrLogLevel::NOTICE, LogLevel::NOTICE->level());
     }
 
-    public function dataProvider()
+    public function testGetLevelFromStringReturnsCorrectValue()
     {
-        return [
-            [PsrLogLevel::DEBUG],
-            [PsrLogLevel::CRITICAL],
-            [PsrLogLevel::EMERGENCY],
-            [PsrLogLevel::ALERT],
-            [PsrLogLevel::ERROR],
-            [PsrLogLevel::INFO],
-            [PsrLogLevel::WARNING],
-            [PsrLogLevel::NOTICE],
-            ['not_registered_level'],
-        ];
+        $this->assertEquals(LogLevel::DEBUG, LogLevel::getLevelFromString(PsrLogLevel::DEBUG));
+        $this->assertEquals(LogLevel::CRITICAL, LogLevel::getLevelFromString(PsrLogLevel::CRITICAL));
+        $this->assertEquals(LogLevel::EMERGENCY, LogLevel::getLevelFromString(PsrLogLevel::EMERGENCY));
+        $this->assertEquals(LogLevel::ALERT, LogLevel::getLevelFromString(PsrLogLevel::ALERT));
+        $this->assertEquals(LogLevel::ERROR, LogLevel::getLevelFromString(PsrLogLevel::ERROR));
+        $this->assertEquals(LogLevel::INFO, LogLevel::getLevelFromString(PsrLogLevel::INFO));
+        $this->assertEquals(LogLevel::WARNING, LogLevel::getLevelFromString(PsrLogLevel::WARNING));
+        $this->assertEquals(LogLevel::NOTICE, LogLevel::getLevelFromString(PsrLogLevel::NOTICE));
+    }
+
+    public function testGetLevelFromStringThrowsExceptionForInvalidValue()
+    {
+        $this->expectException(\RuntimeException::class);
+        LogLevel::getLevelFromString('invalid_value');
     }
 }

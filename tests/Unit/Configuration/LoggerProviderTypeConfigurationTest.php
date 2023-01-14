@@ -35,31 +35,47 @@ class LoggerProviderTypeConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
-    public function testGetLogLevel($loggerLevel)
+    public function testDefaultLogLevel()
     {
         $this->applicationConfiguration
             ->expects($this->once())
             ->method('get')
             ->with('LOGGER_DEFAULT_LOG_LEVEL')
-            ->willReturn($loggerLevel);
+            ->willReturn(null);
 
-        if ($loggerLevel) {
+        $this->assertEquals(LogLevel::DEBUG, $this->loggerProviderTypeConfiguration->getLogLevel());
+    }
+
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testGetLogLevel(string|null $loggerLevel)
+    {
+        if ('invalid' === $loggerLevel) {
+            $this->expectException(\RuntimeException::class);
+        } else {
+            $this->applicationConfiguration
+                ->expects($this->once())
+                ->method('get')
+                ->with('LOGGER_DEFAULT_LOG_LEVEL')
+                ->willReturn($loggerLevel ?: 'debug');
+        }
+
+        if (null !== $loggerLevel && 'default' !== $loggerLevel) {
             $this->assertEquals(LogLevel::getLevelFromString($loggerLevel), $this->loggerProviderTypeConfiguration->getLogLevel());
 
             return;
         }
 
-        $this->assertEquals(LogLevel::DEBUG->level(), $this->loggerProviderTypeConfiguration->getLogLevel());
+        $this->assertEquals(LogLevel::DEBUG, $this->loggerProviderTypeConfiguration->getLogLevel());
     }
 
     public function dataProvider()
     {
         return [
-            'critical',
-            null,
+            ['critical'],
+            ['invalid'],
+            [null],
         ];
     }
 

@@ -61,7 +61,7 @@ enum LogLevel
             case PsrLogLevel::NOTICE:
                 return LogLevel::NOTICE;
             default:
-                throw new \RuntimeException('Invalid log level value `%s`.');
+                throw new \RuntimeException(sprintf('Invalid log level value `%s`.', $logLevel));
         }
     }
 }

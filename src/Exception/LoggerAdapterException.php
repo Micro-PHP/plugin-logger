@@ -16,6 +16,6 @@ namespace Micro\Plugin\Logger\Exception;
 /**
  * @author Stanislau Komar <head.trackingsoft@gmail.com>
  */
-class LoggerAdapterNotRegisteredException extends LoggerAdapterException
+class LoggerAdapterException extends \RuntimeException
 {
 }
