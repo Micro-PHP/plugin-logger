@@ -112,6 +112,11 @@ class LoggerProviderTest extends TestCase
             ->with('loggerName')
             ->willReturn($loggerProviderTypeConfig);
 
+        $this->loggerPluginConfiguration
+            ->method('getLoggerProviderTypeConfig')
+            ->with('loggerName')
+            ->willReturn($loggerProviderTypeConfig);
+
         $this->loggerProviderPlugin
             ->expects($this->once())
             ->method('getLoggerAdapterName')
