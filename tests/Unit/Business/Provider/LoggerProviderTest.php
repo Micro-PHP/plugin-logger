@@ -63,7 +63,7 @@ class LoggerProviderTest extends TestCase
             ->expects($this->once())
             ->method('plugins')
             ->with(LoggerProviderPluginInterface::class)
-            ->willReturn([$this->loggerProviderPlugin]);
+            ->willReturn(new \ArrayObject([$this->loggerProviderPlugin]));
 
         $this->loggerFactory
             ->expects($this->once())
@@ -121,10 +121,10 @@ class LoggerProviderTest extends TestCase
             ->expects($this->once())
             ->method('plugins')
             ->with(LoggerProviderPluginInterface::class)
-            ->willReturn([
+            ->willReturn(new \ArrayObject([
                 $providerNotUsed,
                 $this->loggerProviderPlugin,
-            ]);
+            ]));
 
         if (!$shouldAdaptedNotFoundException) {
             $this->loggerFactory
@@ -163,10 +163,10 @@ class LoggerProviderTest extends TestCase
         $this->kernel
             ->expects($this->once())
             ->method('plugins')
-            ->willReturn([
+            ->willReturn(new \ArrayObject([
                 $this->loggerProviderPlugin,
                 $this->loggerProviderPlugin,
-            ])
+            ]))
         ;
 
         $this->loggerProvider->getLogger('loggerName');
@@ -183,9 +183,9 @@ class LoggerProviderTest extends TestCase
         $this->kernel
             ->expects($this->once())
             ->method('plugins')
-            ->willReturn([
+            ->willReturn(new \ArrayObject([
                 $this->loggerProviderPlugin,
-            ])
+            ]))
         ;
 
         $this->loggerProvider->getLogger('loggerName');
@@ -197,8 +197,7 @@ class LoggerProviderTest extends TestCase
         $this->kernel
             ->expects($this->once())
             ->method('plugins')
-            ->willReturn([
-            ])
+            ->willReturn(new \ArrayObject([]))
         ;
 
         $this->loggerProvider->getLogger('loggerName');
