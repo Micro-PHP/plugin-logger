@@ -23,6 +23,9 @@
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^5.2"
     },
+    "suggest": {
+        "micro/plugin-logger-monolog": "Monolog logger implementation for Micro Framework"
+    },
     "autoload": {
         "psr-4": {
             "Micro\\Plugin\\Logger\\": "src/"
