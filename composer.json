@@ -10,9 +10,9 @@
         }
     ],
     "require": {
-        "micro/kernel": "^1",
-        "micro/kernel-boot-configuration": "^1",
-        "micro/kernel-boot-dependency": "^1",
+        "micro/kernel": "^1.6",
+        "micro/kernel-boot-configuration": "^1.6",
+        "micro/kernel-boot-dependency": "^1.6",
         "psr/log": "^1 || ^2 || ^3"
     },
     "require-dev": {
