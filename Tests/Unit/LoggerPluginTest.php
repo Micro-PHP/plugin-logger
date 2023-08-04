@@ -11,10 +11,10 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Logger\Test\Unit;
+namespace Micro\Plugin\Logger\Tests\Unit;
 
 use Micro\Component\DependencyInjection\Autowire\ContainerAutowire;
-use Micro\Component\DependencyInjection\Container;
+use Micro\Framework\DependencyInjection\Container;
 use Micro\Framework\Kernel\KernelInterface;
 use Micro\Plugin\Logger\Facade\LoggerFacadeInterface;
 use Micro\Plugin\Logger\LoggerPlugin;

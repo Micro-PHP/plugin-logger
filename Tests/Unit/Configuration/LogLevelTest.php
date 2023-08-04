@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Logger\Test\Unit\Configuration;
+namespace Micro\Plugin\Logger\Tests\Unit\Configuration;
 
 use Micro\Plugin\Logger\Configuration\LogLevel;
 use PHPUnit\Framework\TestCase;

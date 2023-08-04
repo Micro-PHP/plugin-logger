@@ -11,7 +11,7 @@
 
 namespace Micro\Plugin\Logger;
 
-use Micro\Framework\Kernel\Configuration\PluginConfiguration;
+use Micro\Framework\BootConfiguration\Configuration\PluginConfiguration;
 use Micro\Plugin\Logger\Configuration\LoggerPluginConfigurationInterface;
 use Micro\Plugin\Logger\Configuration\LoggerProviderTypeConfiguration;
 use Micro\Plugin\Logger\Configuration\LoggerProviderTypeConfigurationInterface;

@@ -11,9 +11,9 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Logger\Test\Unit;
+namespace Micro\Plugin\Logger\Tests\Unit;
 
-use Micro\Framework\Kernel\Configuration\ApplicationConfigurationInterface;
+use Micro\Framework\BootConfiguration\Configuration\ApplicationConfigurationInterface;
 use Micro\Plugin\Logger\Configuration\LoggerPluginConfigurationInterface;
 use Micro\Plugin\Logger\Configuration\LoggerProviderTypeConfigurationInterface;
 use Micro\Plugin\Logger\LoggerPluginConfiguration;
